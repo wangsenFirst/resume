@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="time"></div>
+    <script type="text/javascript">
+        function time() {
+            var vWeek, vWeek_s, vDay;
+            vWeek = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+            var date =  new Date();
+            year = date.getFullYear();
+            month = date.getMonth() + 1;
+            day = date.getDate();
+            hours = date.getHours();
+            minutes = date.getMinutes();
+            seconds = date.getSeconds();
+            vWeek_s = date.getDay();
+            document.getElementById("time").innerHTML = year + "年" + month + "月" + day + "日" + "\t" + hours + ":" + minutes + ":" + seconds + "\t" + vWeek[vWeek_s];
+
+        };
+        setInterval("time()", 1000);
+    </script>
+    <div id="box"></div>
+    <script>
+        //创建ajax引擎对象
+        let xhr = new XMLHttpRequest();
+
+        //配置请求方式和请求地址
+        xhr.open("get","http://ajax.h5.itsource.cn:5000/api/testGet?name=张三");
+
+        // 监听响应码和状态码
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4 && xhr.status == 200){
+                // 处理数据
+                let res = JSON.parse(xhr.responseText);
+                console.log(res);
+
+                //判定再渲染
+                if(res.code == 200){
+                    box.innerHTML = res.data;
+                }
+            }
+        }
+        // 发送请求
+        xhr.send();
+    </script>
+
+</body>
+</html>
