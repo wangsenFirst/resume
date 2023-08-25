@@ -1,32 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Resume</title>
-    <link rel="stylesheet" href="./style/normalize.css">
-    <link rel="stylesheet" href="./style/font-awesome/font-awesome.css">
-    <link rel="stylesheet" href="./style/animate.css">
-    <link rel="stylesheet" href="component/Resume/main.css">
-    <link rel="stylesheet" href="./style/index.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-    <div id="container">
-        <div style="text-align: center;">
-            <i class="fa fa-4x fa-spinner fa-pulse"></i>
-            <p>
-                正在加载...aaa
-            </p>
-        </div>
-        <div id="time"></div>
-    </div>
-    <footer>
-        build on <a href="https://github.com/wangsenFirst/resume">Resume</a> by <a href="https://github.com/wangsenFirst">王森</a>
-    </footer>
-    <script src="./script/fetch.js"></script>
-    <script src="./script/react.js"></script>
-    <script src="component/Resume/main.js"></script>
-
+<div >wangsen</div>
+    <div id="time"></div>
     <script type="text/javascript">
         function time() {
             var vWeek, vWeek_s, vDay;
@@ -41,8 +21,32 @@
             vWeek_s = date.getDay();
             document.getElementById("time").innerHTML = year + "年" + month + "月" + day + "日" + "\t" + hours + ":" + minutes + ":" + seconds + "\t" + vWeek[vWeek_s];
 
-        };
+        }
         setInterval("time()", 1000);
+    </script>
+    <div id="box"></div>
+    <script>
+        //创建ajax引擎对象
+        let xhr = new XMLHttpRequest();
+
+        //配置请求方式和请求地址
+        xhr.open("get","http://ajax.h5.itsource.cn:5000/api/testGet?name=张三");
+
+        // 监听响应码和状态码
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4 && xhr.status == 200){
+                // 处理数据
+                let res = JSON.parse(xhr.responseText);
+                console.log(res);
+
+                //判定再渲染
+                if(res.code == 200){
+                    box.innerHTML = res.data;
+                }
+            }
+        }
+        // 发送请求
+        xhr.send();
     </script>
 
 </body>
